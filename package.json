@@ -1,0 +1,16 @@
+{
+  "name": "chosomint",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "keywords": [],
+  "author": "AC0xRPFS001",
+  "description": "",
+  "dependencies": {
+    "@kyometori/djsmusic": "^0.5.1",
+    "discord.js": "^13.1.0",
+    "dotenv": "^10.0.0"
+  }
+}
