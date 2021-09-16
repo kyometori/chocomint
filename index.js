@@ -1,4 +1,5 @@
 const { Client, Collection } = require('discord.js');
+const { createMusicManager } = require('@kyometori/djsmusic');
 const fs = require('fs');
 require('dotenv').config();
 const client = new Client({
@@ -16,6 +17,7 @@ for (const file of commandFiles) {
 client.once('ready', () => {
   console.log(`${client.user.tag} 已成功上線！`);
   require('./features/presence.js')(client);
+  createMusicManager(client);
 });
 
 client.on('interactionCreate', async interaction => {

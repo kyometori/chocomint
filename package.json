@@ -1,5 +1,5 @@
 {
-  "name": "chosomint",
+  "name": "chocomint",
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
@@ -10,8 +10,9 @@
   "author": "AC0xRPFS001",
   "description": "",
   "dependencies": {
-    "@kyometori/djsmusic": "^0.5.1",
+    "@kyometori/djsmusic": "^0.5.2",
     "discord.js": "^13.1.0",
-    "dotenv": "^10.0.0"
+    "dotenv": "^10.0.0",
+    "ffmpeg-static": "^4.4.0"
   }
 }
