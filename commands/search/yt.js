@@ -12,7 +12,7 @@ module.exports = {
     required: true
   }],
   async execute(interaction) {
-    interaction.deferReply();
+    await interaction.deferReply();
     const query = interaction.options.getString('搜尋字串');
 
     const results = await YoutubeUtils.search(query, 15);
@@ -62,15 +62,16 @@ module.exports = {
       return true
     }
 
-    function afterPlay([track, queued]) {
-      res.setThumbnail(track.details.thumbnailUrl)
+    async function afterPlay([track, queued]) {
+      await track.details.data.fetch();
+      res.setThumbnail(track.details.data.thumbnailUrl)
         .setAuthor('Chocomint 通知中心', interaction.client.user.displayAvatarURL())
         .setFooter(`由 ${track.player.displayName} 指定的歌曲`, track.player.user.displayAvatarURL());
 
       if (queued) {
-        res.setDescription(`已將 [${track.title}](${track.details.ytUrl}) 加入隊列`);
+        res.setDescription(`已將 [${track.title}](${track.details.data.url}) 加入隊列`);
       } else {
-        res.setDescription(`開始播放 [${track.title}](${track.details.ytUrl})`);
+        res.setDescription(`開始播放 [${track.title}](${track.details.data.url})`);
       }
 
       interaction.channel.send({

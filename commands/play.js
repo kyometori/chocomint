@@ -11,7 +11,7 @@ module.exports = {
     description: '網址或搜尋字串',
     required: true
   }],
-  execute(interaction) {
+  async execute(interaction) {
     const res = new MessageEmbed()
       .setAuthor('Chocomint 通知中心', interaction.client.user.displayAvatarURL())
       .setColor(0xE4FFF6);
@@ -36,16 +36,17 @@ module.exports = {
         });
       }
 
-      interaction.deferReply();
+      await interaction.deferReply();
 
-      function afterPlay([track, queued]) {
-        res.setThumbnail(track.details.thumbnailUrl)
+      async function afterPlay([track, queued]) {
+        await track.details.data.fetch();
+        res.setThumbnail(track.details.data.thumbnailUrl)
           .setFooter(`由 ${track.player.displayName} 指定的歌曲`, track.player.user.displayAvatarURL());
 
         if (queued) {
-          res.setDescription(`已將 [${track.title}](${track.details.ytUrl}) 加入隊列`);
+          res.setDescription(`已將 [${track.title}](${track.details.data.ytUrl}) 加入隊列`);
         } else {
-          res.setDescription(`開始播放 [${track.title}](${track.details.ytUrl})`);
+          res.setDescription(`開始播放 [${track.title}](${track.details.data.url})`);
         }
 
         interaction.editReply({
@@ -61,7 +62,8 @@ module.exports = {
             YoutubeUtils.searchFirstVideo(query)
               .then(data => data.play(manager, {player: interaction.member }).then(afterPlay))
               .catch(e => {
-                interaction.reply('找不到任何東西');
+                console.log(e)
+                interaction.editReply('找不到任何東西');
               });
 
             return
