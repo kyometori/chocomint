@@ -3,7 +3,7 @@ const { MessageEmbed } = require('discord.js');
 module.exports = {
   type: 'CHAT_INPUT',
   name: 'join',
-  description: '加入一個語音頻道',
+  description: '加入你所在的語音頻道',
   execute(interaction) {
     const { channel } = interaction;
     const vc = interaction.member.voice.channel;
@@ -22,7 +22,7 @@ module.exports = {
     if (interaction.client.music.has(interaction.guild.id)) {
       const manager = interaction.client.music.get(interaction.guild.id);
       if (vc.id === manager.channel.id) {
-        res.setDescription('我已經在你的語音頻道中了');
+        res.setDescription('我已經在你的語音頻道中了，你的眼睛還好嗎');
         return interaction.reply({
           embeds: [res],
           ephemeral: true
