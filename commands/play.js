@@ -36,51 +36,51 @@ module.exports = {
       });
     }
 
-      await interaction.deferReply();
+    await interaction.deferReply();
 
-      async function afterPlay([track, queued]) {
-        if (track.details.from === 'Youtube')
-          await track.details.data.fetch();
-        res.setFooter(`由 ${track.player.displayName} 指定的歌曲`, track.player.user.displayAvatarURL());
+    async function afterPlay([track, queued]) {
+      if (track.details.from === 'Youtube')
+        await track.details.data.fetch();
+      res.setFooter(`由 ${track.player.displayName} 指定的歌曲`, track.player.user.displayAvatarURL());
 
-        if (queued) {
-          if (track.details.from === 'Youtube') {
-            res.setThumbnail(track.details.data.thumbnailUrl)
-              .setDescription(`已將 [${track.title}](${track.details.data.url}) 加入隊列`);
-          } else {
-            res.setDescription(`已將 ${track.audioResource} 加入隊列`);
-          }
+      if (queued) {
+        if (track.details.from === 'Youtube') {
+          res.setThumbnail(track.details.data.thumbnailUrl)
+            .setDescription(`已將 [${track.title}](${track.details.data.url}) 加入隊列`);
         } else {
-          if (track.details.from === 'Youtube') {
-            res.setThumbnail(track.details.data.thumbnailUrl)
-              .setDescription(`開始播放 [${track.title}](${track.details.data.url})`);
-          } else {
-            res.setDescription(`開始播放 ${track.audioResource}`);
-          }
+          res.setDescription(`已將 ${track.audioResource} 加入隊列`);
         }
-
-        interaction.editReply({
-          embeds: [res]
-        });
+      } else {
+        if (track.details.from === 'Youtube') {
+          res.setThumbnail(track.details.data.thumbnailUrl)
+            .setDescription(`開始播放 [${track.title}](${track.details.data.url})`);
+        } else {
+          res.setDescription(`開始播放 ${track.audioResource}`);
+        }
       }
 
-      const query = interaction.options.getString('內容');
-      manager.play(query, { player: interaction.member, details: {} })
-        .then(afterPlay)
-        .catch(e => {
-          if (e.message === 'UNSUPPORTED_URL_TYPE') {
-            YoutubeUtils.searchFirstVideo(query)
-              .then(data => data.play(manager, {player: interaction.member }).then(afterPlay))
-              .catch(e => {
-                interaction.editReply('找不到任何東西');
-              });
+      interaction.editReply({
+        embeds: [res]
+      });
+    }
 
-            return
-          }
-          else if (e.message === 'UNPLAYABLE_YOUTUBE_URL' || e.message === 'INVALID_YOUTUBE_URL') {
-            return interaction.editReply('我無法播放這首歌')
-          }
-          throw e;
-        });
+    const query = interaction.options.getString('內容');
+    manager.play(query, { player: interaction.member, details: {} })
+      .then(afterPlay)
+      .catch(e => {
+        if (e.message === 'UNSUPPORTED_URL_TYPE') {
+          YoutubeUtils.searchFirstVideo(query)
+            .then(data => data.play(manager, {player: interaction.member }).then(afterPlay))
+            .catch(e => {
+              interaction.editReply('找不到任何東西');
+            });
+
+          return
+        }
+        else if (e.message === 'UNPLAYABLE_YOUTUBE_URL' || e.message === 'INVALID_YOUTUBE_URL') {
+          return interaction.editReply('我無法播放這首歌')
+        }
+        throw e;
+      });
   }
 }

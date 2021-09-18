@@ -46,7 +46,8 @@ module.exports = {
               .setThumbnail(next.details.data.thumbnailUrl)
               .setFooter(`由 ${next.player.displayName} 指定的歌曲`, next.player.user.displayAvatarURL());
           } else {
-            res.setDescription(`開始播放 [${next.title === 'unknown' ? next.title : next.audioResource}](${next.audioResource})`)
+            res.setDescription(`開始播放 [${next.title === 'unknown' ? next.audioResource : next.title}](${next.audioResource})`)
+              .setThumbnail('')
               .setFooter(`由 ${next.player.displayName} 指定的歌曲`, next.player.user.displayAvatarURL());
           }
         } else {
