@@ -26,6 +26,7 @@ client.once('ready', async () => {
 
   try {
     if (!GuildId) {
+      await client.guilds.cache.get('584395052856639488').commands.set([]);
       await client.application.commands.set(commands);
     } else {
       const guild = client.guilds.cache.get(GuildId);
@@ -39,7 +40,7 @@ client.once('ready', async () => {
 
   console.log('完成部署');
   console.log('程式可以結束');
-  if (!GuildId) console('你部署的是全域指令，請注意需等待一小時才會顯示於 Discord 上');
+  if (!GuildId) console.log('你部署的是全域指令，請注意需等待一小時才會顯示於 Discord 上');
   console.log('------------------------------------')
 });
 
