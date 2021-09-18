@@ -18,6 +18,7 @@ client.once('ready', () => {
   console.log(`${client.user.tag} 已成功上線！`);
   require('./features/presence.js')(client);
   createMusicManager(client, {
+    defaultMaxQueueSize: Infinty,
     enableInlineVolume: true
   });
 });
@@ -39,5 +40,8 @@ client.on('interactionCreate', async interaction => {
     console.log(err);
   }
 });
+
+client.on('error', console.log);
+process.on('uncaughtException', console.log);
 
 client.login(process.env.TOKEN);

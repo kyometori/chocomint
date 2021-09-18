@@ -2,15 +2,8 @@ const { MessageEmbed } = require('discord.js');
 const { YoutubeUtils } = require('@kyometori/djsmusic');
 
 module.exports = {
-  type: 'CHAT_INPUT',
-  name: 'play',
-  description: '播放音樂，支援各類檔案網址、Youtube、直接搜尋',
-  options: [{
-    type: 'STRING',
-    name: '內容',
-    description: '網址或搜尋字串',
-    required: true
-  }],
+  type: 'MESSAGE',
+  name: '播放',
   async execute(interaction) {
     const res = new MessageEmbed()
       .setAuthor('Chocomint 通知中心', interaction.client.user.displayAvatarURL())
@@ -35,8 +28,6 @@ module.exports = {
         ephemeral: true
       });
     }
-
-    await interaction.deferReply();
 
     async function afterPlay([track, queued]) {
       if (track.details.from === 'Youtube')
@@ -64,7 +55,14 @@ module.exports = {
       });
     }
 
-    const query = interaction.options.getString('內容');
+    const query = interaction.options.getMessage('message').content;
+    if (!query) return interaciton.reply({
+      content: '這則訊息沒有內容',
+      ephemeral: true
+    })
+
+    await interaction.deferReply();
+
     manager.play(query, { player: interaction.member, details: {} })
       .then(afterPlay)
       .catch(e => {
@@ -82,5 +80,6 @@ module.exports = {
         }
         throw e;
       });
+      
   }
 }

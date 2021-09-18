@@ -17,9 +17,13 @@ module.exports = {
       .setColor(0xE4FFF6);
 
     if (!name) {
-      const list = interaction.client.commands.map(command => {
-        return `\`/${format(command.name, 6)}\`：${command.description}`;
-      });
+      const list = interaction.client.commands
+        .filter(command => {
+          return command.type === 'CHAT_INPUT';
+        })
+        .map(command => {
+          return `\`/${format(command.name, 10)}\`：${command.description}`;
+        });
 
       res.setDescription(list.join('\n'))
         .setFooter(`${interaction.user.tag}・Chocomint Ice!`, interaction.user.displayAvatarURL());

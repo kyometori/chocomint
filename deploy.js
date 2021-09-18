@@ -26,11 +26,11 @@ client.once('ready', async () => {
 
   try {
     if (!GuildId) {
-      client.application.commands.set(commands);
+      await client.application.commands.set(commands);
     } else {
       const guild = client.guilds.cache.get(GuildId);
       if (!guild) return console.log('無此伺服器');
-      guild.commands.set(commands);
+      await guild.commands.set(commands);
     }
   } catch (err) {
     console.log('出現錯誤');
