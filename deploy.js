@@ -26,7 +26,6 @@ client.once('ready', async () => {
 
   try {
     if (!GuildId) {
-      await client.guilds.cache.get('584395052856639488').commands.set([]);
       await client.application.commands.set(commands);
     } else {
       const guild = client.guilds.cache.get(GuildId);
