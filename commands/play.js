@@ -16,37 +16,47 @@ module.exports = {
       .setAuthor('Chocomint 通知中心', interaction.client.user.displayAvatarURL())
       .setColor(0xE4FFF6);
 
-      if (!interaction.client.music.has(interaction.guild.id)) {
-        res.setDescription('我還不再任何語音頻道中，請先讓我加入一個！');
-        return interaction.reply({
-          embeds: [res],
-          ephemeral: true
-        });
-      }
+    if (!interaction.client.music.has(interaction.guild.id)) {
+      res.setDescription('我還不再任何語音頻道中，請先讓我加入一個！');
+      return interaction.reply({
+        embeds: [res],
+        ephemeral: true
+      });
+    }
 
-      const manager = interaction.client.music.get(interaction.guild.id);
+    const manager = interaction.client.music.get(interaction.guild.id);
 
-      if (!interaction.member.voice.channel ||
-          interaction.member.voice.channel.id !== manager.channel.id) {
+    if (!interaction.member.voice.channel ||
+        interaction.member.voice.channel.id !== manager.channel.id) {
 
-        res.setDescription('你必須跟我在同個語音頻道才能使用此指令');
-        return interaction.reply({
-          embeds: [res],
-          ephemeral: true
-        });
-      }
+      res.setDescription('你必須跟我在同個語音頻道才能使用此指令');
+      return interaction.reply({
+        embeds: [res],
+        ephemeral: true
+      });
+    }
 
       await interaction.deferReply();
 
       async function afterPlay([track, queued]) {
-        await track.details.data.fetch();
-        res.setThumbnail(track.details.data.thumbnailUrl)
-          .setFooter(`由 ${track.player.displayName} 指定的歌曲`, track.player.user.displayAvatarURL());
+        if (track.details.from === 'Youtube')
+          await track.details.data.fetch();
+        res.setFooter(`由 ${track.player.displayName} 指定的歌曲`, track.player.user.displayAvatarURL());
 
         if (queued) {
-          res.setDescription(`已將 [${track.title}](${track.details.data.ytUrl}) 加入隊列`);
+          if (track.details.from === 'Youtube') {
+            res.setThumbnail(track.details.data.thumbnailUrl)
+              .setDescription(`已將 [${track.title}](${track.details.data.url}) 加入隊列`);
+          } else {
+            res.setDescription(`已將 ${track.audioResource} 加入隊列`);
+          }
         } else {
-          res.setDescription(`開始播放 [${track.title}](${track.details.data.url})`);
+          if (track.details.from === 'Youtube') {
+            res.setThumbnail(track.details.data.thumbnailUrl)
+              .setDescription(`開始播放 [${track.title}](${track.details.data.url})`);
+          } else {
+            res.setDescription(`開始播放 ${track.audioResource}`);
+          }
         }
 
         interaction.editReply({
@@ -55,18 +65,20 @@ module.exports = {
       }
 
       const query = interaction.options.getString('內容');
-      manager.play(query, { player: interaction.member })
+      manager.play(query, { player: interaction.member, details: {} })
         .then(afterPlay)
         .catch(e => {
           if (e.message === 'UNSUPPORTED_URL_TYPE') {
             YoutubeUtils.searchFirstVideo(query)
               .then(data => data.play(manager, {player: interaction.member }).then(afterPlay))
               .catch(e => {
-                console.log(e)
                 interaction.editReply('找不到任何東西');
               });
 
             return
+          }
+          else if (e.message === 'UNPLAYABLE_YOUTUBE_URL' || e.message === 'INVALID_YOUTUBE_URL') {
+            return interaction.editReply('我無法播放這首歌')
           }
           throw e;
         });

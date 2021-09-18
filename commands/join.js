@@ -41,9 +41,14 @@ module.exports = {
     }).then(manager => {
       manager.on('end', next => {
         if (next) {
-          res.setDescription(`開始播放 [${next.title}](${next.details.data.url})`)
-            .setThumbnail(next.details.data.thumbnailUrl)
-            .setFooter(`由 ${next.player.displayName} 指定的歌曲`, next.player.user.displayAvatarURL());
+          if (next.details.from === 'Youtube') {
+            res.setDescription(`開始播放 [${next.title}](${next.details.data.url})`)
+              .setThumbnail(next.details.data.thumbnailUrl)
+              .setFooter(`由 ${next.player.displayName} 指定的歌曲`, next.player.user.displayAvatarURL());
+          } else {
+            res.setDescription(`開始播放 [${next.title === 'unknown' ? next.title : next.audioResource}](${next.audioResource})`)
+              .setFooter(`由 ${next.player.displayName} 指定的歌曲`, next.player.user.displayAvatarURL());
+          }
         } else {
           res.setDescription('隊列中的歌曲已播放完畢')
             .setThumbnail('')

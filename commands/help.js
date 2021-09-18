@@ -31,16 +31,10 @@ module.exports = {
       res.setDescription('沒有這個指令');
       return interaction.editReply({ embeds: [res] });
     }
-    let optionString = '';
-    if (!command.options) {} else {
-      optionString = ' '+ command.options.map(op => `\`${op.name}:\` `);
-    }
+
     res.addFields({
       name: '指令名稱',
       value: command.name
-    }, {
-      name: '用法',
-      value: `\`/${command.name}\`${optionString}`
     }, {
       name: '說明',
       value: command.description
