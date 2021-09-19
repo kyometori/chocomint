@@ -18,7 +18,7 @@ client.once('ready', () => {
   console.log(`${client.user.tag} 已成功上線！`);
   require('./features/presence.js')(client);
   createMusicManager(client, {
-    defaultMaxQueueSize: Infinty,
+    defaultMaxQueueSize: Infinity,
     enableInlineVolume: true
   });
 });
