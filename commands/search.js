@@ -41,7 +41,7 @@ module.exports = {
     const commandName = interaction.options.getSubcommand();
 
     command = searchCommands.get(commandName);
-    if (!command) interaction.reply({
+    if (!command) return interaction.reply({
       content: '找不到指令',
       ephemeral: true
     });
