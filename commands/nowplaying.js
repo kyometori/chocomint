@@ -6,7 +6,7 @@ module.exports = {
   description: '現在在放什麼東西？真是個好問題',
   async execute(interaction) {
     const res = new MessageEmbed()
-      .setAuthor('Chocomint 通知中心', interaction.client.user.displayAvatarURL())
+      .setAuthor('cHoCoMiNt 通知中心', interaction.client.user.displayAvatarURL())
       .setColor(0xE4FFF6);
 
     if (!interaction.client.music.has(interaction.guild.id)) {

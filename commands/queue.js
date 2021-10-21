@@ -6,7 +6,7 @@ module.exports = {
   description: '取得目前隊列',
   async execute(interaction) {
     const res = new MessageEmbed()
-      .setAuthor('Chocomint 通知中心', interaction.client.user.displayAvatarURL())
+      .setAuthor('cHoCoMiNt 通知中心', interaction.client.user.displayAvatarURL())
       .setColor(0xE4FFF6);
 
     if (!interaction.client.music.has(interaction.guild.id)) {
@@ -104,7 +104,7 @@ module.exports = {
       return true;
     }
 
-    res.setAuthor('chocomint 的音樂中心', interaction.client.user.displayAvatarURL())
+    res.setAuthor('cHoCoMiNt 的音樂中心', interaction.client.user.displayAvatarURL())
       .setDescription(`\` >> \` [${nowPlaying.name}](${nowPlaying.url})\n\n${pages[0].join('\n')}`)
       .setFooter(`${interaction.user.tag}・第 ${index+1}/${pages.length} 頁`, interaction.user.displayAvatarURL());
 

@@ -18,7 +18,7 @@ module.exports = {
     const results = await YoutubeUtils.search(query, 15);
 
     const res = new MessageEmbed()
-      .setAuthor('Chocomint 搜尋中心', interaction.client.user.displayAvatarURL())
+      .setAuthor('cHoCoMiNt 搜尋中心', interaction.client.user.displayAvatarURL())
       .setDescription(`${interaction.user}，以下為搜尋結果\n請使用選單選擇你要播放的音樂，或按按鈕離開\n\n` +
                       results.map((r, i) => `\`${i+1}. \` ${r.title}`).join('\n\n'))
       .setColor(0xE4FFF6);
@@ -65,7 +65,7 @@ module.exports = {
     async function afterPlay([track, queued]) {
       await track.details.data.fetch();
       res.setThumbnail(track.details.data.thumbnailUrl)
-        .setAuthor('Chocomint 通知中心', interaction.client.user.displayAvatarURL())
+        .setAuthor('cHoCoMiNt 通知中心', interaction.client.user.displayAvatarURL())
         .setFooter(`由 ${track.player.displayName} 指定的歌曲`, track.player.user.displayAvatarURL());
 
       if (queued) {

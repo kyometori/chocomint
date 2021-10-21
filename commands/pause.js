@@ -6,7 +6,7 @@ module.exports = {
   description: '想要休息一下嗎？可以用這個指令暫停音樂',
   execute(interaction) {
     const res = new MessageEmbed()
-      .setAuthor('Chocomint 通知中心', interaction.client.user.displayAvatarURL())
+      .setAuthor('cHoCoMiNt 通知中心', interaction.client.user.displayAvatarURL())
       .setColor(0xE4FFF6);
 
     if (!interaction.client.music.has(interaction.guild.id)) {
