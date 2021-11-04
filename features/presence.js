@@ -12,10 +12,14 @@ function* infArray(array) {
   }
 };
 
+function randomUpper(text) {
+  return text.split('').map(x => Math.random() > 0.5 ? x : x.toUpperCase()).join('')
+}
+
 module.exports = client => {
   const presence = infArray(presenceArray);
-  client.user.setActivity('chocomint ice', presence.next().value);
+  client.user.setActivity(randomUpper('chocomint ice'), presence.next().value);
   setInterval(() => {
-    client.user.setActivity('chocomint ice', presence.next().value);
+    client.user.setActivity(randomUpper('chocomint ice'), presence.next().value);
   }, 15e3);
 }
