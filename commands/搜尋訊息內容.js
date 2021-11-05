@@ -6,7 +6,7 @@ module.exports = {
   name: '搜尋訊息內容',
   async execute(interaction) {
     const res = new MessageEmbed()
-      .setAuthor('cHoCoMiNt 通知中心', interaction.client.user.displayAvatarURL())
+      .setAuthor(`${interaction.client.settings.name} 通知中心`, interaction.client.user.displayAvatarURL())
       .setColor(0xE4FFF6);
 
     if (!interaction.client.music.has(interaction.guild.id)) {
@@ -86,7 +86,7 @@ module.exports = {
     async function afterPlay([track, queued]) {
       await track.details.data.fetch();
       res.setThumbnail(track.details.data.thumbnailUrl)
-        .setAuthor('cHoCoMiNt 通知中心', interaction.client.user.displayAvatarURL())
+        .setAuthor(`${interaction.client.settings.name} 通知中心`, interaction.client.user.displayAvatarURL())
         .setFooter(`由 ${track.player.displayName} 指定的歌曲`, track.player.user.displayAvatarURL());
 
       if (queued) {

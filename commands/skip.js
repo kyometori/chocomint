@@ -6,7 +6,7 @@ module.exports = {
   description: '已經厭倦了嗎......那就直接跳過吧',
   execute(interaction) {
     const res = new MessageEmbed()
-      .setAuthor('cHoCoMiNt 通知中心', interaction.client.user.displayAvatarURL())
+      .setAuthor(`${interaction.client.settings.name} 通知中心`, interaction.client.user.displayAvatarURL())
       .setColor(0xE4FFF6);
 
     if (!interaction.client.music.has(interaction.guild.id)) {

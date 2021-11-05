@@ -6,7 +6,7 @@ module.exports = {
   description: '還原為預設音量',
   async execute(interaction) {
     const res = new MessageEmbed()
-  		.setAuthor('cHoCoMiNt 音量中心', interaction.client.user.displayAvatarURL())
+  		.setAuthor(`${interaction.client.settings.name} 音量中心`, interaction.client.user.displayAvatarURL())
   		.setColor(0xE4FFF6);
 
     await interaction.deferReply();

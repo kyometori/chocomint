@@ -18,7 +18,7 @@ module.exports = {
     const results = await YoutubeUtils.search(query, 15);
 
     const res = new MessageEmbed()
-      .setAuthor('cHoCoMiNt 搜尋中心', interaction.client.user.displayAvatarURL())
+      .setAuthor(`${interaction.client.settings.name} 搜尋中心`, interaction.client.user.displayAvatarURL())
       .setDescription(`${interaction.user}，以下為搜尋結果\n請使用選單選擇你要播放的音樂，或按按鈕離開\n\n` +
                       results.map((r, i) => `\`${i+1}. \` ${r.title}`).join('\n\n'))
       .setColor(0xE4FFF6);

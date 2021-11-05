@@ -7,6 +7,7 @@ const client = new Client({
 });
 
 client.commands = new Collection();
+client.settings = require('./settings.json');
 
 const commandFiles = fs.readdirSync('./commands').filter(file => file.endsWith('.js'));
 for (const file of commandFiles) {
@@ -41,7 +42,7 @@ client.on('interactionCreate', async interaction => {
   }
 });
 
-client.on('error', console.log);
-process.on('uncaughtException', console.log);
+client.on('error', console.error);
+process.on('uncaughtException', console.error);
 
 client.login(process.env.TOKEN);

@@ -8,7 +8,7 @@ module.exports = {
     const { channel } = interaction;
     const vc = interaction.member.voice.channel;
     const res = new MessageEmbed()
-      .setAuthor('cHoCoMiNt 通知中心', interaction.client.user.displayAvatarURL())
+      .setAuthor(`${interaction.client.settings.name} 通知中心`, interaction.client.user.displayAvatarURL())
       .setColor(0xE4FFF6);
 
     if (!vc) {

@@ -6,7 +6,7 @@ module.exports = {
   description: '離開目前語音頻道',
   execute(interaction) {
     const res = new MessageEmbed()
-      .setAuthor('cHoCoMiNt 通知中心', interaction.client.user.displayAvatarURL())
+      .setAuthor(`${interaction.client.settings.name} 通知中心`, interaction.client.user.displayAvatarURL())
       .setColor(0xE4FFF6);
 
 

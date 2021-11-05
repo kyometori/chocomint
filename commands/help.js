@@ -13,7 +13,7 @@ module.exports = {
     await interaction.deferReply();
     const name = interaction.options.getString('指令名稱');
     const res = new MessageEmbed()
-      .setAuthor('cHoCoMiNt 幫助中心', interaction.client.user.displayAvatarURL())
+      .setAuthor(`${interaction.client.settings.name} 幫助中心`, interaction.client.user.displayAvatarURL())
       .setColor(0xE4FFF6);
 
     if (!name) {
