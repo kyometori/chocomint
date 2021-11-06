@@ -10,7 +10,7 @@ function* infArray(array) {
     yield array[i++];
     i %= array.length;
   }
-};
+}
 
 function randomUpper(text) {
   return text.split('').map(x => Math.random() > 0.5 ? x : x.toUpperCase()).join('')

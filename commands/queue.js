@@ -104,7 +104,7 @@ module.exports = {
       return true;
     }
 
-    res.setAuthor('cHoCoMiNt 的音樂中心', interaction.client.user.displayAvatarURL())
+    res.setAuthor(`${interaction.client.settings.name} 的音樂中心`, interaction.client.user.displayAvatarURL())
       .setDescription(`\` >> \` [${nowPlaying.name}](${nowPlaying.url})\n\n${pages[0].join('\n')}`)
       .setFooter(`${interaction.user.tag}・第 ${index+1}/${pages.length} 頁`, interaction.user.displayAvatarURL());
 
