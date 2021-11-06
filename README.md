@@ -2,8 +2,8 @@
 ![code quality](https://img.shields.io/codefactor/grade/github/kyometori/chocomint/main)
 ![license](https://img.shields.io/github/license/kyometori/chocomint)
 ![last commit](https://img.shields.io/github/last-commit/kyometori/chocomint)
-![discord.js version](https://img.shields.io/github/package-json/dependency-version/kyometori/chocomint/discord.js)
-![@kyometori/djsmusic verison](https://img.shields.io/github/package-json/dependency-version/kyometori/chocomint/@kyometori/djsmusic)
+[![discord.js version](https://img.shields.io/github/package-json/dependency-version/kyometori/chocomint/discord.js)](https://discord.js.org)
+[![@kyometori/djsmusic verison](https://img.shields.io/github/package-json/dependency-version/kyometori/chocomint/@kyometori/djsmusic)](https://www.npmjs.com/package/@kyometori/djsmusic)
 
 [![chocomint ice!!!](./banner.png)](https://discord.com/oauth2/authorize?client_id=887896057621671997&permissions=517580573952&scope=bot%20applications.commands)
 
