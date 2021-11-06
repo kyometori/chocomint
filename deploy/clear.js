@@ -3,7 +3,7 @@
  * 使用純 node.js （無套件依賴）
  * 這個檔案是用來清除指令資料（取消發佈指令）的
  * 每當需要刪除全部指令時，請執行此檔案
- * 注意全域指令有一小時 cooldown
+ * 注意全域指令有一小時 cache
  */
 
 /***** 清除部分 *****/
@@ -22,7 +22,7 @@ clear(TOKEN, GuildId);
 /**/
 
 /***** 函式 *****/
-// deploy function
+// clear function
 async function clear(token, guild) {
   // Constants
   const { id } = await getDataByToken(token);
