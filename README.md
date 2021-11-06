@@ -5,7 +5,7 @@
 ![discord.js version](https://img.shields.io/github/package-json/dependency-version/kyometori/chocomint/discord.js)
 ![@kyometori/djsmusic verison](https://img.shields.io/github/package-json/dependency-version/kyometori/chocomint/@kyometori/djsmusic)
 
-[![chocomint ice!!!](https://cdn.discordapp.com/avatars/887896057621671997/68731e21cf8fef2b44a6d59233c9825a.png)](https://discord.com/oauth2/authorize?client_id=887896057621671997&permissions=517580573952&scope=bot%20applications.commands)
+[![chocomint ice!!!](./banner.png)](https://discord.com/oauth2/authorize?client_id=887896057621671997&permissions=517580573952&scope=bot%20applications.commands)
 
 ## 簡介
 一個現代化的 Discord 音樂機器人，使用 [@kyometori/djsmusic](https://www.npmjs.com/package/@kyometori/djsmusic) 套件製作
