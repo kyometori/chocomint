@@ -7,12 +7,19 @@ const client = new Client({
 });
 
 client.commands = new Collection();
+client.autocomplete = new Collection();
 client.settings = require('./settings.json');
 
 const commandFiles = fs.readdirSync('./commands').filter(file => file.endsWith('.js'));
 for (const file of commandFiles) {
 	const command = require(`./commands/${file}`);
   client.commands.set(command.name, command);
+}
+
+const autocompleteFiles = fs.readdirSync('./autocomplete').filter(file => file.endsWith('.js'));
+for (const file of autocompleteFiles) {
+	const autocomplete = require(`./autocomplete/${file}`);
+  client.autocomplete.set(autocomplete.name, autocomplete);
 }
 
 client.once('ready', () => {
@@ -24,7 +31,12 @@ client.once('ready', () => {
   });
 });
 
-client.on('interactionCreate', async interaction => {
+client.on('interactionCreate', interaction => {
+  if (interaction.isCommand() || interaction.isContextMenu()) commandHandler(interaction);
+  if (interaction.isAutocomplete()) autocompleteHandler(interaction);
+});
+
+async function commandHandler(interaction) {
   if (!interaction.isCommand() && !interaction.isContextMenu()) return;
 
   const { commandName } = interaction;
@@ -40,7 +52,15 @@ client.on('interactionCreate', async interaction => {
   } catch(err) {
     console.log(err);
   }
-});
+}
+
+async function autocompleteHandler(interaction) {
+  const { commandName } = interaction;
+  const command = client.commands.get(commandName)
+  const { name } = interaction.options.getFocused(true);
+  client.autocomplete.get(commandName)[name](interaction);
+}
+
 
 client.on('error', console.error);
 process.on('uncaughtException', console.error);

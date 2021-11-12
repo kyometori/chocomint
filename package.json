@@ -1,6 +1,6 @@
 {
   "name": "chocomint",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "main": "index.js",
   "license": "MIT",
   "scripts": {
@@ -8,9 +8,14 @@
     "deploy": "node deploy/deploy.js",
     "clear": "node deploy/clear.js"
   },
-  "keywords": [],
+  "keywords": [
+    "chocomint", "ice",
+    "discord", "music", "bot",
+    "node", "js", "javascript",
+    "slash", "command", "interaction"
+  ],
   "author": "AC0xRPFS001",
-  "description": "",
+  "description": "一個神奇的音樂機器人",
   "dependencies": {
     "@kyometori/djsmusic": "^0.8.0",
     "discord.js": "^13.3.1",

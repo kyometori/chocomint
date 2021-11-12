@@ -7,7 +7,8 @@ module.exports = {
   options: [{
     type: 'STRING',
     name: '指令名稱',
-    description: '特別想知道誰的用法嗎'
+    description: '特別想知道誰的用法嗎',
+    autocomplete: true,
   }],
   async execute(interaction) {
     await interaction.deferReply();
