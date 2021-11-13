@@ -56,7 +56,7 @@ module.exports = {
         name: '相關連結',
         value: '[邀請我](https://discord.com/oauth2/authorize?client_id=887896057621671997&permissions=517580573952&scope=bot%20applications.commands)・[原始碼](https://github.com/kyometori/chocomint)・[Chocomint Ice](https://github.com/kyometori/chocomint#chocomint-ice)'
       })
-      .setThumbnail(interaction.client.user.displayAvatarURL())
+      .setThumbnail(interaction.client.user.displayAvatarURL({ format: 'png', size: 300 }))
       .setFooter(`${interaction.user.tag}・使用 /help 來查看所有指令`, interaction.user.displayAvatarURL());
 
     interaction.editReply({
