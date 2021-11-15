@@ -37,9 +37,8 @@ module.exports = {
     }
     
     if (interaction.member.voice.channel.type === "GUILD_STAGE_VOICE" && interaction.guild.me.voice.suppress) {
-            await interaction.guild.me.voice.setSuppressed(false);
-    }
-    return
+         await interaction.guild.me.voice.setSuppressed(false);
+    } 
 
     await interaction.deferReply();
 
