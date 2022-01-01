@@ -6,7 +6,7 @@ module.exports = {
   description: '現在在放什麼東西？真是個好問題',
   async execute(interaction) {
     const res = new MessageEmbed()
-      .setAuthor(`${interaction.client.settings.name} 通知中心`, interaction.client.user.displayAvatarURL())
+      .setAuthor({ name: `${interaction.client.settings.name} 通知中心`, iconURL: interaction.client.user.displayAvatarURL() })
       .setColor(0xE4FFF6);
 
     if (!interaction.client.music.has(interaction.guild.id)) {
@@ -47,7 +47,7 @@ module.exports = {
     }
 
     res.setDescription(des)
-      .setFooter(`由 ${np.player.user.tag} 指定的樂曲`, np.player.user.displayAvatarURL());
+      .setFooter({ text: `由 ${np.player.user.tag} 指定的樂曲`, iconURL: np.player.user.displayAvatarURL() });
 
 
     interaction.editReply({ embeds: [res] });

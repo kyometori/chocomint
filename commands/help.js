@@ -14,7 +14,7 @@ module.exports = {
     await interaction.deferReply();
     const name = interaction.options.getString('指令名稱');
     const res = new MessageEmbed()
-      .setAuthor(`${interaction.client.settings.name} 幫助中心`, interaction.client.user.displayAvatarURL())
+      .setAuthor({ name: `${interaction.client.settings.name} 幫助中心`, iconURL: interaction.client.user.displayAvatarURL() })
       .setColor(0xE4FFF6);
 
     if (!name) {
@@ -27,7 +27,7 @@ module.exports = {
         });
 
       res.setDescription(list.join('\n'))
-        .setFooter(`${interaction.user.tag}・cHoCoMiNt iCE!`, interaction.user.displayAvatarURL());
+        .setFooter({ text: `${interaction.user.tag}・cHoCoMiNt iCE!`, iconURL: interaction.user.displayAvatarURL() });
 
       return interaction.editReply({ embeds: [res] });
     }

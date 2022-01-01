@@ -6,7 +6,7 @@ module.exports = {
   description: '當你暫停後想要繼續播放，可以考慮看看這個指令',
   execute(interaction) {
     const res = new MessageEmbed()
-      .setAuthor(`${interaction.client.settings.name} 通知中心`, interaction.client.user.displayAvatarURL())
+      .setAuthor({ name: `${interaction.client.settings.name} 通知中心`, iconURL: interaction.client.user.displayAvatarURL() })
       .setColor(0xE4FFF6);
 
     if (!interaction.client.music.has(interaction.guild.id)) {

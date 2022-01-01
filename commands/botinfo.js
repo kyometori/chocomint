@@ -12,7 +12,7 @@ module.exports = {
     const totalMemberCount = interaction.client.guilds.cache.reduce((acc, g) => acc + g.memberCount, 0);
 
     const infoEmbed = new MessageEmbed()
-      .setAuthor('我的資訊', interaction.client.user.displayAvatarURL(), 'https://discord.com/oauth2/authorize?client_id=887896057621671997&permissions=517580573952&scope=bot%20applications.commands')
+      .setAuthor({ name: '我的資訊', iconURL: interaction.client.user.displayAvatarURL(), url: 'https://discord.com/oauth2/authorize?client_id=887896057621671997&permissions=517580573952&scope=bot%20applications.commands' })
       .addFields({
         name: '名字',
         value: tag,
@@ -23,7 +23,7 @@ module.exports = {
         inline: true
       }, {
         name: '版本',
-        value: 'v1.1.0',
+        value: 'v1.2.0',
         inline: true
       }, {
         name: '服務伺服器數量',
@@ -57,7 +57,7 @@ module.exports = {
         value: '[邀請我](https://discord.com/oauth2/authorize?client_id=887896057621671997&permissions=517580573952&scope=bot%20applications.commands)・[原始碼](https://github.com/kyometori/chocomint)・[Chocomint Ice](https://github.com/kyometori/chocomint#chocomint-ice)'
       })
       .setThumbnail(interaction.client.user.displayAvatarURL({ format: 'png', size: 300 }))
-      .setFooter(`${interaction.user.tag}・使用 /help 來查看所有指令`, interaction.user.displayAvatarURL());
+      .setFooter({ text: `${interaction.user.tag}・使用 /help 來查看所有指令`, iconURL: interaction.user.displayAvatarURL() });
 
     interaction.editReply({
       embeds: [infoEmbed]

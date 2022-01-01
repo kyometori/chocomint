@@ -6,7 +6,7 @@ module.exports = {
   description: '取得目前隊列',
   async execute(interaction) {
     const res = new MessageEmbed()
-      .setAuthor(`${interaction.client.settings.name} 通知中心`, interaction.client.user.displayAvatarURL())
+      .setAuthor({ name: `${interaction.client.settings.name} 通知中心`, iconURL: interaction.client.user.displayAvatarURL() })
       .setColor(0xE4FFF6);
 
     if (!interaction.client.music.has(interaction.guild.id)) {
@@ -106,7 +106,7 @@ module.exports = {
 
     res.setAuthor(`${interaction.client.settings.name} 的音樂中心`, interaction.client.user.displayAvatarURL())
       .setDescription(`\` >> \` [${nowPlaying.name}](${nowPlaying.url})\n\n${pages[0].join('\n')}`)
-      .setFooter(`${interaction.user.tag}・第 ${index+1}/${pages.length} 頁`, interaction.user.displayAvatarURL());
+      .setFooter({ text: `${interaction.user.tag}・第 ${index+1}/${pages.length} 頁`, iconURL: interaction.user.displayAvatarURL() });
 
     interaction.editReply({ embeds: [res], components: [row] })
       .then(message => {
@@ -137,7 +137,7 @@ module.exports = {
           pageButtons.end.setDisabled(index == pages.length - 1);
 
           res.setDescription(`\` >> \` [${nowPlaying.name}](${nowPlaying.url})\n\n${pages[index].join('\n')}`)
-            .setFooter(`${interaction.user.tag}・第 ${index+1}/${pages.length} 頁`, interaction.user.displayAvatarURL());
+            .setFooter({ text: `${interaction.user.tag}・第 ${index+1}/${pages.length} 頁`, iconURL: interaction.user.displayAvatarURL() });
 
           const newRow = new MessageActionRow({
             components: Object.values(pageButtons)

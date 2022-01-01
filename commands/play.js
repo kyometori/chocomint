@@ -13,7 +13,7 @@ module.exports = {
   }],
   async execute(interaction) {
     const res = new MessageEmbed()
-      .setAuthor(`${interaction.client.settings.name} 通知中心`, interaction.client.user.displayAvatarURL())
+      .setAuthor({ name: `${interaction.client.settings.name} 通知中心`, iconURL: interaction.client.user.displayAvatarURL() })
       .setColor(0xE4FFF6);
 
     if (!interaction.client.music.has(interaction.guild.id)) {
@@ -41,7 +41,7 @@ module.exports = {
     async function afterPlay([track, queued]) {
       if (track.details.from === 'Youtube')
         await track.details.data.fetch();
-      res.setFooter(`由 ${track.player.displayName} 指定的歌曲`, track.player.user.displayAvatarURL());
+      res.setFooter({ text: `由 ${track.player.displayName} 指定的歌曲`, iconURL: track.player.user.displayAvatarURL() });
 
       if (queued) {
         if (track.details.from === 'Youtube') {

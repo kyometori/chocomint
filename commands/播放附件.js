@@ -5,11 +5,11 @@ module.exports = {
   name: '播放附件',
   async execute(interaction) {
     const res = new MessageEmbed()
-      .setAuthor(`${interaction.client.settings.name} 通知中心`, interaction.client.user.displayAvatarURL())
+      .setAuthor({ name: `${interaction.client.settings.name} 通知中心`, iconURL: interaction.client.user.displayAvatarURL() })
       .setColor(0xE4FFF6);
 
     if (!interaction.client.music.has(interaction.guild.id)) {
-      res.setDescription('我還不再任何語音頻道中，請先讓我加入一個！');
+      res.setDescription('我還不在任何語音頻道中，請先讓我加入一個！');
       return interaction.reply({
         embeds: [res],
         ephemeral: true
@@ -28,7 +28,7 @@ module.exports = {
       });
     }
 
-    const atts = interaction.options.getMessage('message').attachments;
+    const atts = interaction.targetMessage.attachments;
 
     if (!atts.size) return interaction.reply({
       content: '這個訊息沒有附件',
@@ -40,7 +40,7 @@ module.exports = {
     await interaction.deferReply();
 
     async function afterPlay([track, queued]) {
-      res.setFooter(`由 ${track.player.displayName} 指定的歌曲`, track.player.user.displayAvatarURL());
+      res.setFooter({ text: `由 ${track.player.displayName} 指定的歌曲`, iconURL: track.player.user.displayAvatarURL() });
 
       if (queued) {
         res.setDescription(`已將 [${track.title}](${track.audioResource}) 加入隊列`);

@@ -6,7 +6,7 @@ module.exports = {
   name: '搜尋訊息內容',
   async execute(interaction) {
     const res = new MessageEmbed()
-      .setAuthor(`${interaction.client.settings.name} 通知中心`, interaction.client.user.displayAvatarURL())
+      .setAuthor({ name: `${interaction.client.settings.name} 通知中心`, iconURL: interaction.client.user.displayAvatarURL() })
       .setColor(0xE4FFF6);
 
     if (!interaction.client.music.has(interaction.guild.id)) {
@@ -29,7 +29,7 @@ module.exports = {
       });
     }
 
-    const query = interaction.options.getMessage('message').content;
+    const query = interaction.targetMessage.content;
     if (!query) return interaction.reply({
       content: '這則訊息沒有內容',
       ephemeral: true
@@ -86,8 +86,8 @@ module.exports = {
     async function afterPlay([track, queued]) {
       await track.details.data.fetch();
       res.setThumbnail(track.details.data.thumbnailUrl)
-        .setAuthor(`${interaction.client.settings.name} 通知中心`, interaction.client.user.displayAvatarURL())
-        .setFooter(`由 ${track.player.displayName} 指定的歌曲`, track.player.user.displayAvatarURL());
+        .setAuthor({ name: `${interaction.client.settings.name} 通知中心`, iconURL: interaction.client.user.displayAvatarURL() })
+        .setFooter({ text: `由 ${track.player.displayName} 指定的歌曲`, iconURL: track.player.user.displayAvatarURL() });
 
       if (queued) {
         res.setDescription(`已將 [${track.title}](${track.details.data.url}) 加入隊列`);

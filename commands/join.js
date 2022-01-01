@@ -8,7 +8,7 @@ module.exports = {
     const { channel } = interaction;
     const vc = interaction.member.voice.channel;
     const res = new MessageEmbed()
-      .setAuthor(`${interaction.client.settings.name} 通知中心`, interaction.client.user.displayAvatarURL())
+      .setAuthor({ name: `${interaction.client.settings.name} 通知中心`, iconURL: interaction.client.user.displayAvatarURL() })
       .setColor(0xE4FFF6);
 
     if (!vc) {
@@ -44,16 +44,16 @@ module.exports = {
           if (next.details.from === 'Youtube') {
             res.setDescription(`開始播放 [${next.title}](${next.details.data.url})`)
               .setThumbnail(next.details.data.thumbnailUrl)
-              .setFooter(`由 ${next.player.displayName} 指定的歌曲`, next.player.user.displayAvatarURL());
+              .setFooter({ text: `由 ${next.player.displayName} 指定的歌曲`, iconURL: next.player.user.displayAvatarURL() });
           } else {
             res.setDescription(`開始播放 [${next.title === 'unknown' ? next.audioResource : next.title}](${next.audioResource})`)
               .setThumbnail('')
-              .setFooter(`由 ${next.player.displayName} 指定的歌曲`, next.player.user.displayAvatarURL());
+              .setFooter({ text: `由 ${next.player.displayName} 指定的歌曲`, iconURL: next.player.user.displayAvatarURL() });
           }
         } else {
           res.setDescription('隊列中的歌曲已播放完畢')
             .setThumbnail('')
-            .setFooter('');
+            .setFooter(null);
         }
         channel.send({ embeds: [res] });
 
