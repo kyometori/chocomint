@@ -13,6 +13,7 @@ module.exports = {
 
     const infoEmbed = new MessageEmbed()
       .setAuthor({ name: '我的資訊', iconURL: interaction.client.user.displayAvatarURL(), url: 'https://discord.com/oauth2/authorize?client_id=887896057621671997&permissions=517580573952&scope=bot%20applications.commands' })
+      .setColor(0xE4FFF6)
       .addFields({
         name: '名字',
         value: tag,
