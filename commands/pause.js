@@ -4,7 +4,7 @@ module.exports = {
   type: 'CHAT_INPUT',
   name: 'pause',
   description: '想要休息一下嗎？可以用這個指令暫停音樂',
-  execute(interaction) {
+  async execute(interaction) {
     const res = new MessageEmbed()
       .setAuthor({ name: `${interaction.client.settings.name} 通知中心`, iconURL: interaction.client.user.displayAvatarURL() })
       .setColor(0xE4FFF6);

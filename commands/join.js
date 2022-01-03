@@ -4,7 +4,8 @@ module.exports = {
   type: 'CHAT_INPUT',
   name: 'join',
   description: '加入你所在的語音頻道',
-  execute(interaction) {
+  async execute(interaction) {
+    await interaction.deferReply();
     const { channel } = interaction;
     const vc = interaction.member.voice.channel;
     const res = new MessageEmbed()
@@ -13,7 +14,7 @@ module.exports = {
 
     if (!vc) {
       res.setDescription('請先加入一個語音頻道');
-      return interaction.reply({
+      return interaction.editReply({
         embeds: [res],
         ephemeral: true
       });
@@ -23,14 +24,14 @@ module.exports = {
       const manager = interaction.client.music.get(interaction.guild.id);
       if (vc.id === manager.channel.id) {
         res.setDescription('我已經在你的語音頻道中了，你的眼睛還好嗎');
-        return interaction.reply({
+        return interaction.editReply({
           embeds: [res],
           ephemeral: true
         });
       }
 
       res.setDescription('我已經在伺服器的其他語音頻道中了，請先將我退出再重新加入');
-      return interaction.reply({
+      return interaction.editReply({
         embeds: [res],
         ephemeral: true
       });
@@ -60,6 +61,6 @@ module.exports = {
       });
     });
     res.setDescription(`已成功加入 ${vc.name}`);
-    interaction.reply({ embeds: [res] });
+    interaction.editReply({ embeds: [res] });
   }
 }

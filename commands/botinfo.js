@@ -1,4 +1,5 @@
 const { MessageEmbed } = require('discord.js');
+const { version } = require('../package.json');
 
 module.exports = {
   type: 'CHAT_INPUT',
@@ -35,7 +36,7 @@ module.exports = {
         inline: true
       }, {
         name: '版本',
-        value: 'v1.3.1',
+        value: `v${version}`,
         inline: true
       }, {
         name: '服務伺服器數量',
@@ -58,7 +59,7 @@ module.exports = {
         value: `<t:${~~(interaction.guild.me.joinedTimestamp/1000)}:R>`,
         inline: true
       }, {
-        name: '在此伺服器分支編號',
+        name: '本分支編號',
         value: `${interaction.client.shard.ids[0]}`,
         inline: true
       }, {

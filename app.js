@@ -32,7 +32,8 @@ client.once('shardReady', id => {
 });
 
 client.once('ready', () => {
-  console.log(`${GREEN}[SHARD#${client.shard.ids[0]}]${RESET} ${client.user.tag} 已成功上線`);
+  if (client.shard) console.log(`${GREEN}[SHARD#${client.shard.ids[0]}]${RESET} ${client.user.tag} 已成功上線`);
+  else console.log('成功上線')
   require('./features/presence.js')(client);
   createMusicManager(client, {
     defaultMaxQueueSize: Infinity,
@@ -41,13 +42,11 @@ client.once('ready', () => {
 });
 
 client.on('interactionCreate', interaction => {
-  if (interaction.isApplicationCommand()) commandHandler(interaction);
-  if (interaction.isAutocomplete()) autocompleteHandler(interaction);
+  if (interaction.isApplicationCommand()) return commandHandler(interaction);
+  if (interaction.isAutocomplete()) return autocompleteHandler(interaction);
 });
 
-async function commandHandler(interaction) {
-  if (!interaction.isCommand() && !interaction.isContextMenu()) return;
-
+function commandHandler(interaction) {
   const { commandName } = interaction;
   const command = client.commands.get(commandName);
 
@@ -56,12 +55,11 @@ async function commandHandler(interaction) {
     ephemeral: true
   });
 
-  try {
-    console.log(`${GREEN}[SHARD#${client.shard.ids[0]}]${RESET} 執行指令：${command.name}`);
-    await command.execute(interaction);
-  } catch(err) {
-    onError(err);
-  }
+  command.execute(interaction)
+    .then(() => {
+      console.log(`${GREEN}[SHARD#${client.shard.ids[0]}]${RESET} 執行指令：${command.name}`);
+    })
+    .catch(onError);
 }
 
 function autocompleteHandler(interaction) {

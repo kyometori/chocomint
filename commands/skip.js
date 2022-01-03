@@ -4,7 +4,7 @@ module.exports = {
   type: 'CHAT_INPUT',
   name: 'skip',
   description: '已經厭倦了嗎......那就直接跳過吧',
-  execute(interaction) {
+  async execute(interaction) {
     const res = new MessageEmbed()
       .setAuthor({ name: `${interaction.client.settings.name} 通知中心`, iconURL: interaction.client.user.displayAvatarURL() })
       .setColor(0xE4FFF6);

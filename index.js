@@ -14,7 +14,7 @@ const manager = new ShardingManager('./app.js', {
 
 manager.on('shardCreate', shard => console.log(`${GREEN}[SHARD#${shard.id}]${RESET} 開始中......`));
 
-manager.spawn({ timeout: -1, amount: 3 }).then(() => {
+manager.spawn({ timeout: -1 }).then(() => {
   console.log(`${YELLOW}[MANAGER]${RESET} 載入完畢`);
 });
 

@@ -4,7 +4,7 @@ module.exports = {
   type: 'CHAT_INPUT',
   name: 'leave',
   description: '離開目前語音頻道',
-  execute(interaction) {
+  async execute(interaction) {
     const res = new MessageEmbed()
       .setAuthor({ name: `${interaction.client.settings.name} 通知中心`, iconURL: interaction.client.user.displayAvatarURL() })
       .setColor(0xE4FFF6);

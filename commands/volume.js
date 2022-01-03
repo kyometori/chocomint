@@ -13,7 +13,7 @@ module.exports = {
   name: 'volume',
   description: '覺得太大聲或太小聲嗎？你可以用這個指令來調整',
   options: [...volumeCommands.values()],
-    async execute(interaction) {
+  async execute(interaction) {
   	const res = new MessageEmbed()
   		.setAuthor({ name: `${interaction.client.settings.name} 通知中心`, iconURL: interaction.client.user.displayAvatarURL() })
   		.setColor(0xE4FFF6);

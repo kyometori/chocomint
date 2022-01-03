@@ -4,7 +4,7 @@ module.exports = {
   type: 'CHAT_INPUT',
   name: 'resume',
   description: '當你暫停後想要繼續播放，可以考慮看看這個指令',
-  execute(interaction) {
+  async execute(interaction) {
     const res = new MessageEmbed()
       .setAuthor({ name: `${interaction.client.settings.name} 通知中心`, iconURL: interaction.client.user.displayAvatarURL() })
       .setColor(0xE4FFF6);
