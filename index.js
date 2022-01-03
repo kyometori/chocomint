@@ -1,68 +1,36 @@
-const { Client, Collection } = require('discord.js');
-const { createMusicManager } = require('@kyometori/djsmusic');
-const fs = require('fs');
+const { ShardingManager } = require('discord.js');
 require('dotenv').config();
-const client = new Client({
-  intents: ['GUILDS', 'GUILD_VOICE_STATES']
+
+/********** Constant **********/
+const RED = '\x1b[31m';
+const GREEN = '\x1b[32m';
+const YELLOW = '\x1b[33m';
+const RESET = '\x1b[0m';
+/**/
+
+const manager = new ShardingManager('./app.js', {
+  token: process.env.TOKEN
 });
 
-client.commands = new Collection();
-client.autocomplete = new Collection();
-client.settings = require('./settings.json');
+manager.on('shardCreate', shard => console.log(`${GREEN}[SHARD#${shard.id}]${RESET} 開始中......`));
 
-const commandFiles = fs.readdirSync('./commands').filter(file => file.endsWith('.js'));
-for (const file of commandFiles) {
-	const command = require(`./commands/${file}`);
-  client.commands.set(command.name, command);
-}
-
-const autocompleteFiles = fs.readdirSync('./autocomplete').filter(file => file.endsWith('.js'));
-for (const file of autocompleteFiles) {
-	const autocomplete = require(`./autocomplete/${file}`);
-  client.autocomplete.set(autocomplete.name, autocomplete);
-}
-
-client.once('ready', () => {
-  console.log(`${client.user.tag} 已成功上線！`);
-  require('./features/presence.js')(client);
-  createMusicManager(client, {
-    defaultMaxQueueSize: Infinity,
-    enableInlineVolume: true
-  });
+manager.spawn({ timeout: -1, amount: 3 }).then(() => {
+  console.log(`${YELLOW}[MANAGER]${RESET} 載入完畢`);
 });
 
-client.on('interactionCreate', interaction => {
-  if (interaction.isCommand() || interaction.isContextMenu()) commandHandler(interaction);
-  if (interaction.isAutocomplete()) autocompleteHandler(interaction);
+['SIGINT', 'SIGUSR1', 'SIGUSR2', 'SIGTERM', 'exit'].forEach(eventName => {
+  process.on(eventName, cleanShards);
 });
 
-async function commandHandler(interaction) {
-  if (!interaction.isCommand() && !interaction.isContextMenu()) return;
-
-  const { commandName } = interaction;
-  const command = client.commands.get(commandName);
-
-  if (!command) interaction.reply({
-    content: '找不到指令',
-    ephemeral: true
-  });
-
+function cleanShards() {
   try {
-    await command.execute(interaction);
-  } catch(err) {
-    console.log(err);
+    console.log(`${YELLOW}[MANAGER]${RESET} 開始結束程式`);
+    manager.shards.each(shard => {
+      shard.kill();
+      console.log(`${GREEN}[SHARD#${shard.id}]${RESET} 結束運行`);
+    })
+    console.log(`${YELLOW}[MANAGER]${RESET} ${GREEN}確實結束${RESET}`);
+  } catch {
+    console.log(`${YELLOW}[MANAGER]${RESET} ${RED}出現異常${RESET}：如果你在這條訊息前有看到「確實結束」，就代表這條訊息是多餘的，並無異常`);
   }
 }
-
-async function autocompleteHandler(interaction) {
-  const { commandName } = interaction;
-  const command = client.commands.get(commandName)
-  const { name } = interaction.options.getFocused(true);
-  client.autocomplete.get(commandName)[name](interaction);
-}
-
-
-client.on('error', console.error);
-process.on('uncaughtException', console.error);
-
-client.login(process.env.TOKEN);

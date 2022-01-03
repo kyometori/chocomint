@@ -9,7 +9,18 @@ module.exports = {
 
     const { tag } = interaction.client.user;
     const { nickname } = interaction.guild.me;
-    const totalMemberCount = interaction.client.guilds.cache.reduce((acc, g) => acc + g.memberCount, 0);
+    const promiseGuildCount = interaction.client.shard
+      .fetchClientValues('guilds.cache.size')
+      .then(reduceReturnValue);
+    const promiseMemberCount = interaction.client.shard
+      .broadcastEval(c => c.guilds.cache.reduce((acc, guild) => acc + guild.memberCount, 0))
+      .then(reduceReturnValue);
+    const promiseConnectionsCount = interaction.client.shard
+      .fetchClientValues('music.connections.size')
+      .then(reduceReturnValue);
+
+    const [totalGuildCount, totalMemberCount, totalConnectionsCount] =
+      await Promise.all([promiseGuildCount, promiseMemberCount, promiseConnectionsCount]);
 
     const infoEmbed = new MessageEmbed()
       .setAuthor({ name: '我的資訊', iconURL: interaction.client.user.displayAvatarURL(), url: 'https://discord.com/oauth2/authorize?client_id=887896057621671997&permissions=517580573952&scope=bot%20applications.commands' })
@@ -24,11 +35,11 @@ module.exports = {
         inline: true
       }, {
         name: '版本',
-        value: 'v1.2.0',
+        value: 'v1.3.0',
         inline: true
       }, {
         name: '服務伺服器數量',
-        value: `${interaction.client.guilds.cache.size}`,
+        value: `${totalGuildCount}`,
         inline: true
       }, {
         name: '服務總用戶數量',
@@ -36,7 +47,7 @@ module.exports = {
         inline: true
       }, {
         name: '語音連接數量',
-        value: `${interaction.client.music.connections.size}`,
+        value: `${totalConnectionsCount}`,
         inline: true
       }, {
         name: '開始服務時間',
@@ -47,8 +58,8 @@ module.exports = {
         value: `<t:${~~(interaction.guild.me.joinedTimestamp/1000)}:R>`,
         inline: true
       }, {
-        name: '\u200b',
-        value: '\u200b',
+        name: '在此伺服器分支編號',
+        value: `${interaction.client.shard.ids[0]}`,
         inline: true
       }, {
         name: '開發團隊',
@@ -64,4 +75,8 @@ module.exports = {
       embeds: [infoEmbed]
     });
   }
+}
+
+function reduceReturnValue(result) {
+  return result.reduce((acc, now) => acc + now, 0);
 }
