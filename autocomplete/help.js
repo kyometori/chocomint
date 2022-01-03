@@ -14,6 +14,6 @@ module.exports = {
         return testCase.test(v.name);
       });
 
-    interaction.respond(commandList);
+    interaction.respond(commandList).catch(() => {});
   }
 }

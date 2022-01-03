@@ -35,7 +35,7 @@ module.exports = {
         inline: true
       }, {
         name: '版本',
-        value: 'v1.3.0',
+        value: 'v1.3.1',
         inline: true
       }, {
         name: '服務伺服器數量',
