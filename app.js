@@ -64,7 +64,6 @@ function commandHandler(interaction) {
 
 function autocompleteHandler(interaction) {
   const { commandName } = interaction;
-  const command = client.commands.get(commandName)
   const { name } = interaction.options.getFocused(true);
   client.autocomplete.get(commandName)[name](interaction);
 }
