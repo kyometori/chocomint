@@ -65,7 +65,7 @@ module.exports = {
     async function afterPlay([track, queued]) {
       await track.details.data.fetch();
       res.setThumbnail(track.details.data.thumbnailUrl)
-        .setAuthor('cHoCoMiNt 通知中心', interaction.client.user.displayAvatarURL())
+        .setAuthor({ name: `${interaction.client.settings.name} 通知中心`, iconURL: interaction.client.user.displayAvatarURL() })
         .setFooter({ text: `由 ${track.player.displayName} 指定的歌曲`, iconURL: track.player.user.displayAvatarURL() });
 
       if (queued) {
