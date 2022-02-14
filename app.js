@@ -6,7 +6,7 @@ const client = new Client({
   intents: ['GUILDS', 'GUILD_VOICE_STATES']
 });
 
-process.env.DEVMODE = process.env.DEVMODE === 'true' ? true : false;
+process.env.DEVMODE = process.env.DEVMODE === 'true' ? '1' : '';
 
 const RED = '\x1b[31m';
 const GREEN = '\x1b[32m';
