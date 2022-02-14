@@ -12,7 +12,8 @@ module.exports = {
       .filter(v => {
         const testCase = new RegExp(`^.*${value}.*$`, 'gi');
         return testCase.test(v.name);
-      });
+      })
+      .slice(0, 25);
 
     interaction.respond(commandList).catch(() => {});
   }
