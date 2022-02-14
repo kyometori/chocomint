@@ -41,12 +41,19 @@ module.exports = {
 
     manager.setLoop(!manager.nowPlaying.isLooping);
 
+    const songTitle = manager.nowPlaying.details.from === 'Youtube' ?
+      `[${manager.nowPlaying.title}](${manager.nowPlaying.details.data.url})` :
+      `[${np.title === 'unknown' ? np.audioResource : np.title}](${np.audioResource})`;
+
+    if (manager.nowPlaying.details.from === 'Youtube')
+      res.setThumbnail(manager.nowPlaying.details.data?.thumbnailUrl);
+
     if (manager.nowPlaying.isLooping) {
-      res.setDescription('已開始重複播放');
+      res.setDescription(`已開始重複播放 ${songTitle}`);
       return interaction.editReply({ embeds: [res] });
     }
 
-    res.setDescription('已停止重複播放');
+    res.setDescription(`已停止重複播放 ${songTitle}`);
     interaction.editReply({ embeds: [res] });
   }
 }

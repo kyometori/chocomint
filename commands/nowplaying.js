@@ -47,7 +47,10 @@ module.exports = {
     }
 
     res.setDescription(des)
-      .setFooter({ text: `由 ${np.player.user.tag} 指定的樂曲`, iconURL: np.player.user.displayAvatarURL() });
+      .setFooter({
+        text: `由 ${np.player.user.tag} 指定的樂曲${np.isLooping ? '｜🔄 重複播放中' : ''}`,
+        iconURL: np.player.user.displayAvatarURL()
+      });
 
 
     interaction.editReply({ embeds: [res] });
