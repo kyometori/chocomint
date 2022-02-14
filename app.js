@@ -6,6 +6,8 @@ const client = new Client({
   intents: ['GUILDS', 'GUILD_VOICE_STATES']
 });
 
+process.env.DEVMODE = process.env.DEVMODE === 'true' ? true : false;
+
 const RED = '\x1b[31m';
 const GREEN = '\x1b[32m';
 const YELLOW = '\x1b[33m';
@@ -60,6 +62,8 @@ function commandHandler(interaction) {
       console.log(`${GREEN}[SHARD#${client.shard.ids[0]}]${RESET} 執行指令：${command.name}`);
     })
     .catch(onError);
+  if (process.env.DEVMODE)
+    interaction.channel.send(`⚠️ 目前是開發測試狀態，可能會頻繁的上下線導致各種指令中斷，請斟酌使用，我們盡快完成更新`);
 }
 
 function autocompleteHandler(interaction) {
