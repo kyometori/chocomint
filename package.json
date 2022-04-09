@@ -30,7 +30,7 @@
   "author": "AC0xRPFS001",
   "description": "一個神奇的音樂機器人",
   "dependencies": {
-    "@kyometori/djsmusic": "^0.8.2",
+    "@kyometori/djsmusic": "^0.8.4",
     "discord.js": "^13.6.0",
     "dotenv": "^14.3.2",
     "ffmpeg-static": "^4.4.1"
